@@ -24,7 +24,7 @@ You should run the script index.js and that does the following:
 - Installing Libvips:
 
 	- Linux and Windows: libvips and its dependencies are fetched and stored within node_modules/sharp/lib during npm install
-	
+
 	- Mac OS: brew install homebrew/science/vips, for WebP suppport use: brew install homebrew/science/vips --with-webp
 
 ### Configurations
@@ -68,4 +68,4 @@ Run `node index.js`, then it will generate a new file urls.text and paths.txt in
 ## References
 
 - [sharp node module](http://sharp.dimens.io/en/stable/) 
-- [aws-sdk node mdule](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-examples.html)
+- [aws-sdk node module](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-examples.html)
