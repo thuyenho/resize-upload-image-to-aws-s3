@@ -46,7 +46,7 @@ Take a look into `resizeAndUploadImages.js` and edit the values of some variable
 
 - SMALL_IMAGE_HEIGHT: number of pixels height of small image
 
-- MEDIUM_IMAGE_FOLDER: string containing the path to small image folder
+- MEDIUM_IMAGE_FOLDER: string containing the path to medium image folder
 
 - MEDIUM_IMAGE_WIDTH: number of pixels wide of medium image
 
