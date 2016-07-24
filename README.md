@@ -64,7 +64,7 @@ Take a look into `resizeAndUploadImages.js` and edit the values of some variable
 
 - PUBLIC_BUCKET: name of AWS S3 Public Bucket
 
-** Running script **
+### Running script
 
 Run `npm install` and `node resizeAndUploadImages.js`, then it will generate a new file urls.txt and paths.txt in your current working directory.
 
@@ -102,7 +102,7 @@ Take a look into `createSignedUrl.js` and edit the values of some variables:
 
 - pathToObj: path to photo
 
-** Running script **
+### Running script
 
 Run `node createSignedUrl.js`, then it will generate signed url to private images
 
