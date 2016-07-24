@@ -1,8 +1,8 @@
 
-First you must follow the steps to running `resizeAndUploadImage.js` and after that 'createSignedUrl.js'
+First you must follow the steps to running `resizeAndUploadImage.js` and after that `createSignedUrl.js`
 
 
-1. the script resizeAndUploadImage.js
+# 1. the script resizeAndUploadImage.js
 
 ## How does this script work
 
@@ -14,7 +14,7 @@ You should run the script `resizeAndUploadImages.js` and that does the following
 
 3. Create two AWS 3 buckets: one for public and the other for private
 
-4. Grante Read-Only Permission to an Anonymous User on public bucket
+4. Grant Read-Only Permission to an Anonymous User on public bucket
 
 5. Upload small and medium images to public bucket, origin image to private bucket
 
@@ -68,7 +68,7 @@ Take a look into `resizeAndUploadImages.js` and edit the values of some variable
 
 Run `npm install` and `resizeAndUploadImages.js`, then it will generate a new file urls.txt and paths.txt in your current working directory.
 
-2. the script createSignedUrl.js
+# 2. the script createSignedUrl.js
 
 ## Steps to work on this script
 	
@@ -80,13 +80,13 @@ Run `npm install` and `resizeAndUploadImages.js`, then it will generate a new fi
 
 2. Creating the private CloudFront distribution, configure your origin with the settings:
 
-** Origin Domain Name: ** your private AWS S3 bucket
+**Origin Domain Name:** your private AWS S3 bucket
 
-** Restrict Bucket Access: ** Yes
+**Restrict Bucket Access:** Yes
 
-** Grant Read Permissions on Bucket: ** Yes, Update Bucket Policy
+**Grant Read Permissions on Bucket:** Yes, Update Bucket Policy
 
-** Trusted Signers: ** Self
+**Trusted Signers: **Self
 
 ### Configurations
 
