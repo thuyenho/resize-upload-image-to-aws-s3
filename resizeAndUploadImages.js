@@ -21,8 +21,8 @@ var NUMBER_OF_IMAGES_UPLOADED_SIMULTANEOUSLY = 10;
 
 var ACCESS_KEY_ID = '[ACCESS_KEY_ID]';
 var SECRET_ACCESS_KEY ='[SECRET_ACCESS_KEY]'; 
-var PRIVATE_BUCKET = '[PRIVATE_BUCKET]';
-var PUBLIC_BUCKET = '[PUBLIC_BUCKET]';
+var PRIVATE_BUCKET = '[PRIVATE_BUCKET]'; // example: raydar-private-images
+var PUBLIC_BUCKET = '[PUBLIC_BUCKET]'; // exemmpale: 'raydar-public-images';
 var REGION = 'ap-southeast-1'; 
 
 AWS.config.update({accessKeyId: ACCESS_KEY_ID, secretAccessKey: SECRET_ACCESS_KEY});
