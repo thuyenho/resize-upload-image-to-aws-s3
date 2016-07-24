@@ -66,7 +66,7 @@ Take a look into `resizeAndUploadImages.js` and edit the values of some variable
 
 ** Running script **
 
-Run `npm install` and `resizeAndUploadImages.js`, then it will generate a new file urls.txt and paths.txt in your current working directory.
+Run `npm install` and `node resizeAndUploadImages.js`, then it will generate a new file urls.txt and paths.txt in your current working directory.
 
 # 2. the script createSignedUrl.js
 
@@ -76,7 +76,7 @@ Run `npm install` and `resizeAndUploadImages.js`, then it will generate a new fi
 
 1. Creating the public CloudFront distribution, configure your origin with the settings:
 
-** Origin Domain Name: ** your public AWS S3 bucket
+**Origin Domain Name:** your public AWS S3 bucket
 
 2. Creating the private CloudFront distribution, configure your origin with the settings:
 
@@ -86,7 +86,7 @@ Run `npm install` and `resizeAndUploadImages.js`, then it will generate a new fi
 
 **Grant Read Permissions on Bucket:** Yes, Update Bucket Policy
 
-**Trusted Signers: **Self
+**Trusted Signers:** Self
 
 ### Configurations
 
@@ -101,6 +101,10 @@ Take a look into `createSignedUrl.js` and edit the values of some variables:
 - DOMAIN_NAME: domain name of private CloundFront (format: xxxx.cloudfront.net)
 
 - pathToObj: path to photo
+
+** Running script **
+
+Run `node createSignedUrl.js`, then it will generate signed url to private images
 
 ## Features
 
