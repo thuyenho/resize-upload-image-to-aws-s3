@@ -74,11 +74,11 @@ Run `npm install` and `node resizeAndUploadImages.js`, then it will generate a n
 	
 ### Prerequisites
 
-- Creating the public CloudFront distribution, configure your origin with the settings:
+Creating the public CloudFront distribution, configure your origin with the settings:
 
 **Origin Domain Name:** your public AWS S3 bucket
 
-- Creating the private CloudFront distribution, configure your origin with the settings:
+Creating the private CloudFront distribution, configure your origin with the settings:
 
 **Origin Domain Name:** your private AWS S3 bucket
 
