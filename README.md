@@ -1,5 +1,5 @@
 
-First you must follow the steps to running `CreateAndSetPermissionOnBucket.js` and after that 'httpServer.js` or `createSignedUrl.js`
+First you must follow the steps to running `CreateAndSetPermissionOnBucket.js` and after that `httpServer.js` or `createSignedUrl.js`
 
 
 # 1. the script CreateAndSetPermissionOnBucket.js
