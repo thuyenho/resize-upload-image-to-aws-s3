@@ -1,7 +1,7 @@
 var cf = require('aws-cloudfront-sign');
 var configurations = require('./configurations.js');
 
-var pathToObj = '/origin-images/sample.jpg';
+var pathToObj = configurations.pathToObj;
 
 var options = {keypairId: configurations.AWS_CLOUDFRONT_ACCCESS_KEY_ID, 
               privateKeyPath: configurations.PATH_TO_AWS_CLOUDFRONT_PRIVATE_KEY,
