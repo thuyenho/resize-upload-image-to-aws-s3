@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Upload photo</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+	<form id="formContent" enctype="multipart/form-data" method="post" >
+	<label for="source">Source:</label><input type="text" name="source"><br>
+	<label for="author">Author:</label><input type="text" name="author"><br>
+	<label for="photo">Photos:</label><input type="file" name="photo" multiple="multiple"><br>
+	<input type="submit" value="Upload">
+	</form>
+
+	<div id='loading'> </div>
+
+	<div id='results' style='display: none;'>
+		<div> <b>LIST OF URLS OF ORIGINAL PHOTOS</b></div>
+		<div id='origin-urls'></div>
+		<div> <b>LIST OF URLS OF SMALL PHOTOS</b></div>
+		<div id='small-urls'></div>
+		<div> <b>LIST OF URLS OF MEDIUM PHOTOS</b></div>
+		<div id='medium-urls'></div>
+	</div>
+
+	<script type="text/javascript">
+		$("#formContent").submit(function(e){
+        	e.preventDefault();
+        	$('#results').hide();
+        	$('#loading').html('Uploading...!');
+	    	var formdata = new FormData(this);
+
+	        $.ajax({
+	            url: "/upload",
+	            type: "POST",
+	            data: formdata,
+	            mimeTypes:"multipart/form-data",
+	            contentType: false,
+	            cache: false,
+	            processData: false,
+	            success: function(res){
+	            	$('#loading').html('');
+	            	$('#results').show();
+	            	for (var i=0; i < res.listOfURLsOfOriginalImages.length; i++) {
+	            		$('#origin-urls').append('<div>' +  res.listOfURLsOfOriginalImages[i] + '</div>');
+	            	}
+	            	for (var i=0; i < res.listOfURLsOfSmallImages.length; i++) {
+	            		$('#small-urls').append('<div>' +  res.listOfURLsOfSmallImages[i] + '</div>');
+	            	}
+	            	for (var i=0; i < res.listOfURLsOfMediumImages.length; i++) {
+	            		$('#medium-urls').append('<div>' +  res.listOfURLsOfMediumImages[i] + '</div>');
+	            	}
+	            },error: function(err){
+	            	$('#loading').html('');
+	                alert(err.responseText);
+	            }
+	         });
+	    });	
+	</script>
+</body>
+</html>
