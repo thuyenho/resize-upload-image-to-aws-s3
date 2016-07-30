@@ -1,5 +1,5 @@
 
-First you must follow the steps to running `resizeAndUploadImage.js` and after that `createSignedUrl.js`
+First you must follow the steps to running `CreateAndSetPermissionOnBucket.js` and after that 'httpServer.js` or `createSignedUrl.js`
 
 
 # 1. the script CreateAndSetPermissionOnBucket.js
@@ -133,9 +133,3 @@ Run `node createSignedUrl.js`, then it will generate signed url to private image
 - [aws-sdk node module](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-examples.html)
 
 - [bucket-policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html)
-
-
-
-1. Read list of files in image folder
-
-2. Create small and medium images from origin images
