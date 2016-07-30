@@ -2,23 +2,15 @@
 First you must follow the steps to running `resizeAndUploadImage.js` and after that `createSignedUrl.js`
 
 
-# 1. the script resizeAndUploadImage.js
+# 1. the script CreateAndSetPermissionOnBucket.js
 
 ## How does this script work
 
-You should run the script `resizeAndUploadImages.js` and that does the following steps:
+You should run the script `CreateAndSetPermissionOnBucket.js` and that does the following steps:
 
-1. Read list of files in image folder
+1. Create two AWS 3 buckets: one for public and the other for private
 
-2. Create small and medium images from origin images
-
-3. Create two AWS 3 buckets: one for public and the other for private
-
-4. Grant Read-Only Permission to an Anonymous User on public bucket
-
-5. Upload small and medium images to public bucket, origin image to private bucket
-
-6. Write image paths, URLs that receive from  AWS S3 on the text files, such as: urls.txt, paths.txt
+2. Grant Read-Only Permission to an Anonymous User on public bucket
 
 ## Steps to work on this script
 	
@@ -36,7 +28,7 @@ You should run the script `resizeAndUploadImages.js` and that does the following
 
 ### Configurations
 
-Take a look into `resizeAndUploadImages.js` and edit the values of some variables:
+Take a look into `configurations.js` and edit the values of some variables:
 
 - ORIGIN_IMAGE_FOLDER: string containing the path to original image folder
 
@@ -66,9 +58,22 @@ Take a look into `resizeAndUploadImages.js` and edit the values of some variable
 
 ### Running script
 
-Run `npm install` and `node resizeAndUploadImages.js`, then it will generate a new file urls.txt and paths.txt in your current working directory.
+Run `npm install` and `node CreateAndSetPermissionOnBucket.js`, then it will generate two AWS S3 bucket: public and private
 
-# 2. the script createSignedUrl.js
+# 2. the script httpServer.js
+
+You should run the script `node httpServer.js` and that does the following steps:
+
+1. Create web server listen on port 8080 (localhost:8080)
+
+2. Receive photos from http protocol
+
+3. Resize original photos into small and medium sizes
+
+4. Upload photos to AWS S3
+
+
+# 3. the script createSignedUrl.js
 
 ## Steps to work on this script
 	
@@ -90,7 +95,7 @@ Creating the private CloudFront distribution, configure your origin with the set
 
 ### Configurations
 
-Take a look into `createSignedUrl.js` and edit the values of some variables:
+Take a look into `configurations.js` and edit the values of some variables:
 
 - AWS_CLOUDFRONT_ACCCESS_KEY_ID: the access key ID from your Cloudfront keypair
 
@@ -128,3 +133,9 @@ Run `node createSignedUrl.js`, then it will generate signed url to private image
 - [aws-sdk node module](http://docs.aws.amazon.com/AWSJavaScriptSDK/guide/node-examples.html)
 
 - [bucket-policies](https://docs.aws.amazon.com/AmazonS3/latest/dev/example-bucket-policies.html)
+
+
+
+1. Read list of files in image folder
+
+2. Create small and medium images from origin images

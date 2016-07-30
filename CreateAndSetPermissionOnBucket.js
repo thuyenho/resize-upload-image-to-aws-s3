@@ -4,29 +4,11 @@ var async = require('async');
 var sharp = require('sharp');
 var AWS = require('aws-sdk');
 var url = require('url');
- 
 
-var ORIGIN_IMAGE_FOLDER = 'origin-images';
+var configurations = require('./configurations.js')
 
-var SMALL_IMAGE_FOLDER = 'small-images';
-var SMALL_IMAGE_WIDTH = 200;
-var SMALL_IMAGE_HEIGHT = 200;
-
-var MEDIUM_IMAGE_FOLDER = 'medium-images';
-var MEDIUM_IMAGE_WIDTH = 400;
-var MEDIUM_IMAGE_HEIGHT = 400;
-
-var NUMBER_OF_IMAGES_RESIZED_SIMULTANEOUSLY = 10;
-var NUMBER_OF_IMAGES_UPLOADED_SIMULTANEOUSLY = 10;
-
-var ACCESS_KEY_ID = '[ACCESS_KEY_ID]';
-var SECRET_ACCESS_KEY ='[SECRET_ACCESS_KEY]'; 
-var PRIVATE_BUCKET = '[PRIVATE_BUCKET]'; // example: raydar-private-images
-var PUBLIC_BUCKET = '[PUBLIC_BUCKET]'; // example: 'raydar-public-images';
-var REGION = 'ap-southeast-1'; 
-
-AWS.config.update({accessKeyId: ACCESS_KEY_ID, secretAccessKey: SECRET_ACCESS_KEY});
-AWS.config.region = REGION 
+AWS.config.update({accessKeyId: configurations.ACCESS_KEY_ID, secretAccessKey: configurations.SECRET_ACCESS_KEY});
+AWS.config.region = configurations.REGION; 
 
 
 function getListOfFiles(folder) {
@@ -85,10 +67,10 @@ function resizeImage(pathOfOriginImage, destFolder, width, height, callback) {
      *  Resize image, resized image  is saved to destFolder
      */
 
-    var absoluteathOfDestImage = path.resolve(ORIGIN_IMAGE_FOLDER, pathOfOriginImage);
+    var absolutePathOfDestImage = path.resolve(ORIGIN_IMAGE_FOLDER, pathOfOriginImage);
     var pathOfDestImage = path.resolve(destFolder, pathOfOriginImage);
   
-    sharp(absoluteathOfDestImage)
+    sharp(absolutePathOfDestImage)
     .resize(width, height)
     .toFile(pathOfDestImage, function(error) {
         if (error) {
@@ -112,11 +94,11 @@ function createSmallAndMediumImageFolder(callback) {
 }
 
 function createBucketPrivate(callback) {
-    createBucket(PRIVATE_BUCKET, 'private', callback);
+    createBucket(configurations.PRIVATE_BUCKET, 'private', callback);
 }
 
 function createBucketPublic(callback) {
-    createBucket(PUBLIC_BUCKET, 'public-read', callback);
+    createBucket(configurations.PUBLIC_BUCKET, 'public-read', callback);
 }
 
 function createBucket(bucketName, acl, callback) {
@@ -126,7 +108,7 @@ function createBucket(bucketName, acl, callback) {
         Bucket: bucketName, /* required */
         ACL: acl,
         CreateBucketConfiguration: {
-            LocationConstraint: REGION
+            LocationConstraint: configurations.REGION
         },
     };
 
@@ -159,13 +141,13 @@ function allowAnonymousAccessImagesOnBucketPublic(callback) {
             "Effect":"Allow",
             "Principal": "*",
             "Action":["s3:GetObject"],
-            "Resource":["arn:aws:s3:::" + PUBLIC_BUCKET + "/*"]
+            "Resource":["arn:aws:s3:::" + configurations.PUBLIC_BUCKET + "/*"]
             }
         ]
     });
 
     var params = {
-      Bucket: PUBLIC_BUCKET,
+      Bucket: configurations.PUBLIC_BUCKET,
       Policy: bucketPolicyAllowAnonymousAccessObject
     };
     var s3 = new AWS.S3();
@@ -214,7 +196,7 @@ function uploadOriginImagesToPrivateBucket(callback) {
     return uploadImages(
         NUMBER_OF_IMAGES_UPLOADED_SIMULTANEOUSLY, 
         ORIGIN_IMAGE_FOLDER,
-        PRIVATE_BUCKET, 
+        configurations.PRIVATE_BUCKET, 
         callback
     );
 }
@@ -224,7 +206,7 @@ function uploadSmallImagesToPublicBucket(callback) {
     return uploadImages(
         NUMBER_OF_IMAGES_UPLOADED_SIMULTANEOUSLY, 
         SMALL_IMAGE_FOLDER,
-        PUBLIC_BUCKET, 
+        configurations.PUBLIC_BUCKET, 
         callback
     );
 }
@@ -234,7 +216,7 @@ function uploadMediumImagesToPublicBucket(callback) {
     return uploadImages(
         NUMBER_OF_IMAGES_UPLOADED_SIMULTANEOUSLY, 
         MEDIUM_IMAGE_FOLDER,
-        PUBLIC_BUCKET, 
+        configurations.PUBLIC_BUCKET, 
         callback
     );
 }
@@ -263,23 +245,20 @@ function uploadImages(
 var startTime = new Date();
 
 async.waterfall([
-    createSmallAndMediumImageFolder,
-    resizeImages,
+    // createSmallAndMediumImageFolder,
+    // resizeImages,
     createBucketPublic,
     createBucketPrivate,
     allowAnonymousAccessImagesOnBucketPublic,
-    uploadSmallImagesToPublicBucket,
-    uploadMediumImagesToPublicBucket,
-    uploadOriginImagesToPrivateBucket,
+    // uploadSmallImagesToPublicBucket,
+    // uploadMediumImagesToPublicBucket,
+    // uploadOriginImagesToPrivateBucket,
 ], function (err, result) {
     if (err) {
         console.log(err);
     }
 
     var endTime = new Date();
-    console.log('Resizing and uploading images done')
+    console.log('Create and set permissions on bucket done')
     console.log('Time-lapse:', (endTime - startTime) / 1000, 'seconds');
 });
-
-
-
